@@ -16,12 +16,13 @@
 export default {
     methods: {
         async submitForm() {
-            const baseUrl = 'http://craft.test/';
+            const baseUrl = 'https://craft.test/';
             const formData = new FormData(this.$refs.form);
 
             // Fetch a fresh CSRF token
             fetch(baseUrl + 'actions/users/session-info', {
                 method: 'get',
+                credentials: 'include',
                 headers: {
                     'Accept': 'application/json',
                     'X-Requested-With': 'XMLHttpRequest',
@@ -32,6 +33,7 @@ export default {
                 response.json().then((data) => {
                     fetch(baseUrl, {
                         method: 'post',
+                        credentials: 'include',
                         body: formData,
                         headers: {
                             'Accept': 'application/json',
